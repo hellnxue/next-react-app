@@ -2,6 +2,9 @@ import bcrypt from 'bcrypt';
 import postgres from 'postgres';
 import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
+
+
+
 const sql = postgres(process.env.POSTGRES_URL!, { ssl: 'require' });
 
 async function seedUsers() {
@@ -111,7 +114,17 @@ export async function GET() {
     ]);
 
     return Response.json({ message: 'Database seeded successfully' });
-  } catch (error) {
-    return Response.json({ error }, { status: 500 });
+  } catch (error: any) {
+    // return Response.json({ error }, { status: 500 });
+     // 返回详细错误信息
+     return Response.json(
+      { 
+        success: false, 
+        error: error.message,
+        stack: error.stack,
+        env: process.env.DATABASE_URL ? '✅ DB_URL exists' : '❌ DB_URL missing'
+      },
+      { status: 500 }
+    );
   }
 }
