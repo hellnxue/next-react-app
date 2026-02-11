@@ -12,7 +12,7 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
         fetchCustomers(),
       ]);
 
-
+      console.log('invoice=========',invoice)
     if (!invoice) {
       notFound();
     }
