@@ -5,11 +5,14 @@ import readline from "readline";
 
 const execPromise = promisify(exec);
 
+//理解Function Calling 用户输入 → AI 决策 → 执行动作 → 返回结果
+// 成功运行起这段代码，你就已经搭建了一个最简化的AI Agent内核。它是所有复杂Agent框架（如LangChain、AutoGen）的基础
+
 const client = new OpenAI({
-    apiKey: "sk-975291da095d4c3f886989521e0e556f",
+    apiKey: process.env.DEEPSEEK_API_KEY,
     baseURL: "https://api.deepseek.com"
 });
-
+//编写“工具描述”-- 这是给大模型看的说明书
 const tools = [
     {
         type: "function",

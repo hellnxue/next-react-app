@@ -7,11 +7,11 @@ const execPromise = promisify(exec);
 
 // ========== 1. 初始化客户端 ==========
 const client = new OpenAI({
-    apiKey: "sk-975291da095d4c3f886989521e0e556f",  // 替换成你的真实API Key
+    apiKey: process.env.DEEPSEEK_API_KEY,  // 替换成你的真实API Key
     baseURL: "https://api.deepseek.com"
 });
 
-// ========== 2. 定义 bash 工具 ==========
+// ========== 2. 定义 bash 工具 “工具描述”-- 这是给大模型看的说明书 ==========
 const tools = [
     {
         type: "function",

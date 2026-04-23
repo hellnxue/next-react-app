@@ -7,7 +7,7 @@ console.log("Deepseek API Key:", process.env.DEEPSEEK_API_KEY);
 
 const openai = new OpenAI({
         baseURL: 'https://api.deepseek.com',
-        apiKey: ''//process.env.DEEPSEEK_API_KEY,
+        apiKey: process.env.DEEPSEEK_API_KEY//process.env.DEEPSEEK_API_KEY,
 });
 
 async function main() {
@@ -31,13 +31,20 @@ async function main() {
 //   });
 
 const completion = await openai.chat.completions.create({
-    messages: [{ role: "system", content: "你还记得我刚才问的是哪几个问题吗？" }],
+    messages: [{ role: "system", content: "AI有关的最新新闻有什么，简述下就好？" }],
     model: "deepseek-chat",
-    // stream: true
+    stream: true
   });
 
-  console.log(completion.choices[0].message.content);
+  // console.log(completion.choices[0].message.content);
 //   console.log(completion);
+
+   for await(let chunk of completion) {
+      let content=chunk.choices[0].delta
+     if (content) {
+        process.stdout.write(chunk.choices[0].delta.content);
+     }
+   }
 
 }
 
