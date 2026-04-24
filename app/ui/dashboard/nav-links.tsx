@@ -21,6 +21,8 @@ const links = [
     icon: DocumentDuplicateIcon,
   },
   { name: 'Customers', href: '/dashboard/customers', icon: UserGroupIcon },
+  { name: 'Parallel and Intercepted Routes', href: '/dashboard/intercept/feed', icon: UserGroupIcon },
+
 ];
 
 export default function NavLinks() {
